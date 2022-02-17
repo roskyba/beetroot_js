@@ -54,7 +54,8 @@
 13. Write a JavaScript program to create a Clock. The output will come every second. Hint -  use setTimeout
     Skeleton:
 
-    ``` function setClock() {
+    ``` 
+        function setClock() {
             const date = new Date();
                 return {
                     // ... your code goes here

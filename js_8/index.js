@@ -1,1 +1,1 @@
-foo = () => console.log("inside functions foo);
+foo = () => console.log("inside functions foo");

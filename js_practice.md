@@ -51,10 +51,22 @@
 
     ```
 
-13. Write a JavaScript program to create a Clock. The output will come every second.
+13. Write a JavaScript program to create a Clock. The output will come every second. Hint -  use setTimeout
+    Skeleton:
 
+    ``` function setClock() {
+            const date = new Date();
+                return {
+                    // ... your code goes here
+                };
+        }
+
+        const my_clock = setClock();
+        my_clock.run();
     ```
-        Expected Console Output:
+
+    Expected Console Output:
+    ```
         "14:37:42"
         "14:37:43"
         "14:37:44"
@@ -62,3 +74,15 @@
         "14:37:46"
         "14:37:47"
     ```
+
+14. Implement function that will randomly generate HEX colors and apply that color to body (your function should produce a value, f.e #34fab0)
+15. Write a program that prints the numbers from 1 to 100. But for multiples of three print “Fizz” instead of the number and for the multiples of five print “Buzz”. For numbers which are multiples of both three and five print “FizzBuzz”.
+16. Disccuss in a group about this keyword in JS. Give the correct definition with examples (includimg arrow functions)
+17. Write a count(object) function that returns the number of properties of an object.
+18. Create on object called `ladder`. Inside `ladder` we need couple of method - `goUp()`, `goDown()`, `showPosition()`. Ladder starts at 0 position. You code should work like so:
+
+    ````
+        ladder.up().up().down().showPosition(); // it should log ---> 1
+    ````
+19. Take quiz - https://www.w3schools.com/quiztest/quiztest.asp?qtest=JS
+

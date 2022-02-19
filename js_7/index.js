@@ -36,6 +36,8 @@ const calc5 = calculator();
 1 - calculator(); calc5() // this
 2 - obj.drive(); // this 
 3 - .map(callback) // this
+4 - this === currentTarget // in .addEventListener() method
+5 - new // this === {} if functions was called with new operator
 
 
 

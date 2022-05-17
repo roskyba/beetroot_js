@@ -56,3 +56,18 @@ h2, h3 {
   font-size: 25px;
   padding-bottom: 20px;
 }
+ 
+/* You can create ingredients using CSS only! Example below */
+.cheese {
+  background-color: 'yellow';
+  height: 10px;
+  width: 50px;
+  /* ... */
+}
+
+.meat {
+  background-color: darkred;
+  height: 15px;
+  width: 30px;
+  /* ... */
+}

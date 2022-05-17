@@ -12,6 +12,7 @@ class Burger extends React.Component {
             meat: 0,
             cheese: 0,
             pickle: 0,
+            // inputText: '',
             totalPrice: 1
         }
     }
@@ -30,6 +31,10 @@ class Burger extends React.Component {
                 break;
         }
     };
+
+    // onChangeInput = (text) => {
+    //     this.setState({ inputText: text })
+    // }
 
     addIngredient = (ingredient) => {
         if (
@@ -65,6 +70,7 @@ class Burger extends React.Component {
         return (
             <main className="main">
                 <Prices ingredients={this.props.ingredients} />
+                {/* <Builder toChange={this.onChangeInput} text={this.state.inputText} totalPrice={this.state.totalPrice} /> */}
                 <Builder totalPrice={this.state.totalPrice} />
                 <Controls onHandleIngredientQuantity={this.onHandleIngredientQuantity} ingredients={this.props.ingredients} order={this.state} />
             </main>

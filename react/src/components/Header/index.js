@@ -1,16 +1,14 @@
 import './Header.css'
 
-function Header() {
+export default function Header() {
 
     return (
         <>
             <header className="header">
                 <h2>
-                    I am the Header
+                    Burger Builder App
                 </h2>
             </header>
         </>
     )
 }
-
-export default Header

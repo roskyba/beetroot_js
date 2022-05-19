@@ -45,7 +45,7 @@ class Burger extends React.Component {
     addIngredient = (ingredient) => {
         if (this.findIngredientQuantity(ingredient) < 5) {
             this.setState((prevState) => {
-                const newarr = prevState.order.map((elem) => {
+                const newOrder = prevState.order.map((elem) => {
                     if (elem.ingredient === ingredient) {
                         return {
                             ...elem,
@@ -56,7 +56,7 @@ class Burger extends React.Component {
                 })
                 return {
                     ...prevState,
-                    order: newarr,
+                    order: newOrder,
                     inOrder: [...prevState.inOrder, ingredient],
                     totalPrice: Number(prevState.totalPrice + this.findIngredientPrice(ingredient))
                 }

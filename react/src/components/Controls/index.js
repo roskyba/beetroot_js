@@ -6,7 +6,7 @@ const Controls = (props) => {
             <div className="burger_controls" onClick={(e) => {
                 props.onHandleIngredientQuantity(e)
             }}>
-                {props.order.map((order) => {
+                {props.orders.map((order) => {
                     const { ingredient, quantity } = order;
                     return (
                         <div key={ingredient} className='burger_control_item'>

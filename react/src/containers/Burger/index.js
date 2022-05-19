@@ -14,20 +14,30 @@ const customStyles = {
     },
 }
 
+// Modal.setAppElement('#checkout_modal'); // to check
 class Burger extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            order: this.props.ingredients.map(e => { return { ingredient: e.name, quantity: 0 } }),
+            orders: this.props.ingredients.map(e => { return { ingredient: e.name, quantity: 0 } }), // rename to orders
             inOrder: [],
-            totalPrice: 1
+            totalPrice: 1,
+            isModalOpen: false
         }
     }
 
-
+    onShowHideModal = () => {
+        this.setState((prevState) => {
+            return {
+                ...prevState,
+                isModalOpen: !prevState.isModalOpen
+            }
+        });
+        // console.log('check =', this.state.isModalOpen); // true?
+    }
     findIngredientPrice = (ingredient) => this.props.ingredients.find(element => element.name === ingredient).price
 
-    findIngredientQuantity = (ingredient) => this.state.order.find((e) => e.ingredient === ingredient).quantity;
+    findIngredientQuantity = (ingredient) => this.state.orders.find((e) => e.ingredient === ingredient).quantity;
 
     onHandleIngredientQuantity = (e) => {
         e.preventDefault();
@@ -45,20 +55,21 @@ class Burger extends React.Component {
     addIngredient = (ingredient) => {
         if (this.findIngredientQuantity(ingredient) < 5) {
             this.setState((prevState) => {
-                const newOrder = prevState.order.map((elem) => {
+                const newOrders = prevState.orders.map((elem) => {
                     if (elem.ingredient === ingredient) {
                         return {
                             ...elem,
                             quantity: elem.quantity + 1,
                         };
                     }
-                    return elem;
+                    return elem; // return product that is not clicked; {ingredient: 'cheeese', quantity: 5}
                 })
+
                 return {
                     ...prevState,
-                    order: newOrder,
-                    inOrder: [...prevState.inOrder, ingredient],
-                    totalPrice: Number(prevState.totalPrice + this.findIngredientPrice(ingredient))
+                    orders: newOrders, // {ingredient: 'bacon', quantity: 2}
+                    inOrder: [...prevState.inOrder, ingredient], // ['bacon', 'bacon', 'cheese']
+                    totalPrice: Number(prevState.totalPrice + this.findIngredientPrice(ingredient)) // the same
                 }
             })
         }
@@ -71,7 +82,7 @@ class Burger extends React.Component {
                 const newInOrder = [...prevState.inOrder];
                 newInOrder.splice(idx, 1)
 
-                const newOrder = [...prevState.order].map((elem) => {
+                const newOrders = [...prevState.orders].map((elem) => { // To make it reusable
                     if (elem.ingredient === ingredient) {
                         return {
                             ...elem,
@@ -82,8 +93,8 @@ class Burger extends React.Component {
                 })
                 return {
                     ...prevState,
+                    orders: newOrders,
                     inOrder: newInOrder,
-                    order: newOrder,
                     totalPrice: Number(prevState.totalPrice - this.findIngredientPrice(ingredient))
                 }
             })
@@ -95,10 +106,22 @@ class Burger extends React.Component {
         return (
             <main className="main">
                 <Prices ingredients={this.props.ingredients} />
-                <Builder totalPrice={this.state.totalPrice} products={this.state.inOrder} />
-                <Controls onHandleIngredientQuantity={this.onHandleIngredientQuantity} ingredients={this.props.ingredients} order={this.state.order} />
-                <Modal style={customStyles}>{/* Here we can assign props (read documentation) */}
+                <Builder totalPrice={this.state.totalPrice} products={this.state.inOrder} modalControl={this.onShowHideModal} />
+                <Controls onHandleIngredientQuantity={this.onHandleIngredientQuantity} ingredients={this.props.ingredients} orders={this.state.orders} />
+                <Modal
+                    style={customStyles}
+                    isOpen={this.state.isModalOpen}
+                    onRequestClose={this.onShowHideModal}
+                >{/* Here we can assign props (read documentation) */}
                     {/* Here we can add Modal Body content */}
+                    <h2>Hello From Modal</h2>
+                    <button onClick={this.onShowHideModal}>close</button>
+                    {this.state.orders.map((elem) => { // check filter and map
+                        if (elem.quantity > 0) {
+                            return (<p>{elem.ingredient}: {elem.quantity}</p>);
+                        }
+                        return undefined;
+                    })}
                 </Modal> {/* Here are using that component; We need to read&use documentatio of a given component */}
             </main>
         )

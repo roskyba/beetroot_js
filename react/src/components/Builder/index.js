@@ -1,20 +1,19 @@
-import './Builder.css'
+import './Builder.css';
 
 const Builder = (props) => (
     <>
         <div className="burger_builder">
             <h2>
-                {/* <img src= /> Додати верхню булочку*/}
-                {/* <label> To buy:
-                    <input type="text" onChange={(e) => {
-                        props.toChange(e.target.value)
-                    }} />
-                </label> */}
-                {/* <p>Text from input: {props.text}</p> */}
                 Burger price: {props.totalPrice.toFixed(2)} ₴
-                {/* <img src={} /> Додати нижню булочку */}
             </h2>
+            <button className='btn-checkout' disabled={props.totalPrice.toFixed(2) <= 1}>Checkout</button>
+            <div>
+                <div className="top-bun"></div>
+                {props.products.length < 1 && (<h3>Please, start by adding products...</h3>)}
+                {props.products.map((product, idx) => <div key={product + '_' + idx} className={`${product} ingredient`}></div>)}
+                <div className="bottom-bun"></div>
+            </div>
         </div>
     </>
 )
-export default Builder
+export default Builder;

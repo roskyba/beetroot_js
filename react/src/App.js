@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Footer, Header } from './components';
+// import { Footer, Header } from './components';
 import { Burger } from './containers'
 import './App.css';
 
@@ -9,9 +9,9 @@ const App = () => {
 
   return (
     <div className="App" >
-      <Header />
+      {/* <Header /> */}
       <Burger ingredients={ingredients} />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 

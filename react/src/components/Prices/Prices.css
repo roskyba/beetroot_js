@@ -1,16 +1,16 @@
 .burger_prices {
-    padding: 30px;
-    margin: auto;
+  padding: 30px;
+  /* margin: auto; */
 }
 
 .burger_prices {
-    text-align: left;
-} 
+  text-align: left;
+}
 
 .burger_prices span {
-     font-style: italic;
+  font-style: italic;
 }
 
 h3::first-letter {
-    text-transform:capitalize;
+  text-transform: capitalize;
 }

@@ -1,20 +1,22 @@
 import './Controls.css'
 
 const Controls = (props) => {
-
     return (
         <>
             <div className="burger_controls" onClick={(e) => {
                 props.onHandleIngredientQuantity(e)
             }}>
-                {props.ingredients.map((ingredient) => (
-                    <div key={ingredient.name} className='burger_control_item'>
-                        <button data-ingre={ingredient.name} data-action='remove' className='rmv_ingr'>-</button>
-                        <span>{props.order[ingredient.name]}</span>
-                        <button data-ingre={ingredient.name} data-action='add' className='add_ingr'>+</button>
-                        <img src={require(`../../images/${ingredient.name}.png`)} alt={ingredient.name} />
-                    </div>
-                ))}
+                {props.order.map((order) => {
+                    const { ingredient, quantity } = order;
+                    return (
+                        <div key={ingredient} className='burger_control_item'>
+                            <button data-ingre={ingredient} data-action='remove' className='rmv_ingr'>-</button>
+                            <span>{quantity}</span>
+                            <button data-ingre={ingredient} data-action='add' className='add_ingr'>+</button>
+                            <img src={require(`../../images/${ingredient}.png`)} alt={ingredient} />
+                        </div>
+                    )
+                })}
             </div>
         </>
     )

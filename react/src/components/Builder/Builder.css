@@ -1,6 +1,70 @@
 .burger_builder {
-    background-color: rgba(255, 255, 255, 0.45);
-    flex-grow: 2;
-    margin: 30px 0;
-    border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.45);
+  flex-grow: 2;
+  margin: 30px 0;
+  border-radius: 10px;
+  padding-bottom: 15px;
+}
+
+.ingredient {
+  margin: 10px auto;
+}
+
+.cheese {
+  height: 7px;
+  width: 90%;
+  background-color: yellow;
+}
+.bacon {
+  height: 13px;
+  width: 95%;
+  background-color: sandybrown;
+}
+.meat {
+  height: 16px;
+  width: 80%;
+  background-color: darkred;
+}
+.pickle {
+  height: 9px;
+  width: 50%;
+  background-color: green;
+}
+.chicken {
+  height: 21px;
+  width: 70%;
+  background-color: lightgoldenrodyellow;
+}
+.salad {
+  height: 18px;
+  width: 85%;
+  background-color: lightgreen;
+}
+
+.top-bun,
+.bottom-bun {
+  width: 90%;
+  height: 40px;
+  margin: auto;
+  background-color: #f6b96d;
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#f6b96d),
+    to(#b2772f)
+  );
+  background-image: -webkit-linear-gradient(top, #f6b96d, #b2772f);
+  background-image: -moz-linear-gradient(top, #f6b96d, #b2772f);
+  background-image: linear-gradient(to bottom, #f6b96d, #b2772f);
+  border-radius: 3px;
+}
+
+.top-bun {
+  height: 80px;
+  border-radius: 60px 60px 3px 3px;
+}
+
+.bottom-bun {
+  border-radius: 2px 2px 5px 5px;
 }

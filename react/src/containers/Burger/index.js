@@ -1,23 +1,33 @@
 import React from "react";
+import Modal from 'react-modal'; // Here, we are importing library/component/util etc. that we want to use in our APp
 import { Prices, Controls, Builder } from '../../components'
-import './Burger.css'
+import './Burger.css';
+
+const customStyles = {
+    content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+    },
+}
 
 class Burger extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            salad: 0,
-            chicken: 0,
-            bacon: 0, // max up to 5
-            meat: 0,
-            cheese: 0,
-            pickle: 0,
-            // inputText: '',
+            order: this.props.ingredients.map(e => { return { ingredient: e.name, quantity: 0 } }),
+            inOrder: [],
             totalPrice: 1
         }
     }
 
+
     findIngredientPrice = (ingredient) => this.props.ingredients.find(element => element.name === ingredient).price
+
+    findIngredientQuantity = (ingredient) => this.state.order.find((e) => e.ingredient === ingredient).quantity;
 
     onHandleIngredientQuantity = (e) => {
         e.preventDefault();
@@ -32,34 +42,49 @@ class Burger extends React.Component {
         }
     };
 
-    // onChangeInput = (text) => {
-    //     this.setState({ inputText: text })
-    // }
-
     addIngredient = (ingredient) => {
-        if (
-            this.state[ingredient] < 5 // 0, 1, 2, 3, 4 
-        ) {
+        if (this.findIngredientQuantity(ingredient) < 5) {
             this.setState((prevState) => {
+                const newarr = prevState.order.map((elem) => {
+                    if (elem.ingredient === ingredient) {
+                        return {
+                            ...elem,
+                            quantity: elem.quantity + 1,
+                        };
+                    }
+                    return elem;
+                })
                 return {
                     ...prevState,
-                    [ingredient]: prevState[ingredient] + 1,
-                    totalPrice: prevState.totalPrice + this.findIngredientPrice(ingredient)
+                    order: newarr,
+                    inOrder: [...prevState.inOrder, ingredient],
+                    totalPrice: Number(prevState.totalPrice + this.findIngredientPrice(ingredient))
                 }
             })
         }
-
     }
 
     removeIngredient = (ingredient) => {
-        if (
-            this.state[ingredient] > 0
-        ) {
+        if (this.findIngredientQuantity(ingredient) > 0) {
             this.setState((prevState) => {
+                const idx = prevState.inOrder.lastIndexOf(ingredient);
+                const newInOrder = [...prevState.inOrder];
+                newInOrder.splice(idx, 1)
+
+                const newOrder = [...prevState.order].map((elem) => {
+                    if (elem.ingredient === ingredient) {
+                        return {
+                            ...elem,
+                            quantity: elem.quantity - 1,
+                        };
+                    }
+                    return elem;
+                })
                 return {
                     ...prevState,
-                    [ingredient]: prevState[ingredient] - 1,
-                    totalPrice: prevState.totalPrice - this.findIngredientPrice(ingredient)
+                    inOrder: newInOrder,
+                    order: newOrder,
+                    totalPrice: Number(prevState.totalPrice - this.findIngredientPrice(ingredient))
                 }
             })
         }
@@ -70,9 +95,11 @@ class Burger extends React.Component {
         return (
             <main className="main">
                 <Prices ingredients={this.props.ingredients} />
-                {/* <Builder toChange={this.onChangeInput} text={this.state.inputText} totalPrice={this.state.totalPrice} /> */}
-                <Builder totalPrice={this.state.totalPrice} />
-                <Controls onHandleIngredientQuantity={this.onHandleIngredientQuantity} ingredients={this.props.ingredients} order={this.state} />
+                <Builder totalPrice={this.state.totalPrice} products={this.state.inOrder} />
+                <Controls onHandleIngredientQuantity={this.onHandleIngredientQuantity} ingredients={this.props.ingredients} order={this.state.order} />
+                <Modal style={customStyles}>{/* Here we can assign props (read documentation) */}
+                    {/* Here we can add Modal Body content */}
+                </Modal> {/* Here are using that component; We need to read&use documentatio of a given component */}
             </main>
         )
     }

@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .App-logo {
@@ -16,7 +16,6 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,8 +28,6 @@
   color: #61dafb;
 }
 
-
-
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -40,34 +37,21 @@
   }
 }
 
-
 * {
   margin: 0;
   padding: 0;
-  font-family: 'Hubballi', cursive;
+  font-family: "Hubballi", cursive;
 }
 
 body {
-  background-color: #21D4FD;
-  background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);  
+  background-color: #21d4fd;
+  background-image: linear-gradient(19deg, #21d4fd 0%, #b721ff 100%);
 }
 
-h2, h3 {
+h2,
+h3 {
   font-size: 25px;
-  padding-bottom: 20px;
-}
- 
-/* You can create ingredients using CSS only! Example below */
-.cheese {
-  background-color: 'yellow';
-  height: 10px;
-  width: 50px;
-  /* ... */
-}
-
-.meat {
-  background-color: darkred;
-  height: 15px;
-  width: 30px;
-  /* ... */
+  padding-bottom: 15px;
+  padding-top: 15px;
+  text-shadow: 10px 5px 21px darkslateblue;
 }

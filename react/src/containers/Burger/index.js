@@ -1,18 +1,77 @@
 import React from "react"; // Here, we are importing library/component/util etc. that we want to use in our APp
 import { Prices, Controls, Builder, CustomModal } from '../../components'
+import axios from 'axios';
 import './Burger.css';
 
 // Modal.setAppElement('#checkout_modal'); // to check
 class Burger extends React.Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
-            orders: this.props.ingredients.map(e => { return { ingredient: e.name, quantity: 0 } }), // rename to orders
-            inOrder: [],
+            orders: [], // {ingredient: 'bacon', quantity: 0}
+            ingredients: [], // {name: 'bacon', price: 0.75}
+            inOrder: [], // 'pickle', 'meat', 'cheeese'
             totalPrice: 1,
-            isModalOpen: false
+            isModalOpen: false,
+            test: undefined,
         }
+        // this.fun = this.fun.bind(this)
     }
+
+
+
+    handleOrderSave = () => {
+        const data = JSON.stringify({
+            "orderPhone": "99999",
+            "orderAddress": "UKRAINE",
+            "orderName": "Anna",
+            "orderFast": false
+        });
+
+        const config = {
+            method: 'post',
+            url: 'https://beetroot-burger-app.herokuapp.com/orders',
+            headers: {
+                'Authorization': 'Bearer fbab44e0-5e31-4a93-bc8f-55fe77a066b0',
+                'Content-Type': 'application/json'
+            },
+            data: data
+        };
+
+        axios(config)
+            .then(function (response) {
+                console.log(response.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+    componentDidMount = () => {
+        fetch('https://beetroot-burger-app.herokuapp.com/ingredients').then(res => res.json()).then(result => {
+            this.setState((prevState) => {
+                const preparedOrder = result[0].ingredients.map(e => { return { ingredient: e.name, quantity: 0 } })
+                return {
+                    ...prevState,
+                    orders: preparedOrder,
+                    ingredients: result[0].ingredients,
+                }
+            })
+        });
+
+        // ...
+
+
+    }
+
+    // data = {
+    // orderName: "11",
+    // orderPhone: "11",
+    // orderAddress: 'lviv',
+    // orderFast: false
+    // }
+
+    // fetc('.../orders', {methdd: 'POST', body: JSON.stringify(data)}).then()
 
     onShowHideModal = () => {
         this.setState((prevState) => {
@@ -26,7 +85,7 @@ class Burger extends React.Component {
 
     prepareCheckout = () => <ul className="order_checkout">{this.state.orders.map((elem) => elem.quantity > 0 ? (<li key={elem.ingredient + elem.quantity}>{elem.ingredient}: {elem.quantity}</li>) : '')}</ul>;
 
-    findIngredientPrice = (ingredient) => this.props.ingredients.find(element => element.name === ingredient).price
+    findIngredientPrice = (ingredient) => this.state.ingredients.find(element => element.name === ingredient).price
 
     findIngredientQuantity = (ingredient) => this.state.orders.find((e) => e.ingredient === ingredient).quantity;
 
@@ -96,14 +155,15 @@ class Burger extends React.Component {
     render() {
         return (
             <main className="main">
-                <Prices ingredients={this.props.ingredients} />
+                <Prices ingredients={this.state.ingredients} />
                 <Builder totalPrice={this.state.totalPrice} products={this.state.inOrder} modalControl={this.onShowHideModal} />
-                <Controls onHandleIngredientQuantity={this.onHandleIngredientQuantity} ingredients={this.props.ingredients} orders={this.state.orders} />
+                <Controls onHandleIngredientQuantity={this.onHandleIngredientQuantity} ingredients={this.state.ingredients} orders={this.state.orders} />
                 <CustomModal
                     isOpen={this.state.isModalOpen}
                     handleOpenClose={this.onShowHideModal}
                     modalTitle='Awesome! Please, check your order'
                     modalContent={this.prepareCheckout()}
+                    handleOrderSave={this.handleOrderSave}
                     isCheckout
                 />
             </main>

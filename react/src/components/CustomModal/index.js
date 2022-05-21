@@ -13,7 +13,7 @@ const modalStyles = {
     },
 }
 
-const CustomModal = ({ isOpen, handleOpenClose, modalTitle, modalContent, isCheckout }) =>
+const CustomModal = ({ isOpen, handleOpenClose, modalTitle, modalContent, isCheckout, handleOrderSave }) =>
 (
     <Modal
         ariaHideApp={false}
@@ -42,7 +42,7 @@ const CustomModal = ({ isOpen, handleOpenClose, modalTitle, modalContent, isChec
                 )}
             </div>
             <div className='modal_controls'>
-                <button className='btn' onClick={() => console.log('confirm')}>Confim</button>
+                <button className='btn' onClick={handleOrderSave}>Confim</button>
                 <button className='btn' onClick={handleOpenClose}>Close</button>
             </div>
         </div>

@@ -8,7 +8,7 @@
   height: 5vh;
 }
 
-ul li {
+.footer ul li {
   margin: 0;
   height: 20px;
   cursor: pointer;
@@ -20,13 +20,13 @@ ul li {
   border-bottom: 1px solid black;
   padding: 5px 10px;
 }
-ul {
+.footer ul {
   width: 100%;
   display: flex;
   justify-content: space-around;
 }
 
-ul > li:hover {
+.footer ul > li:hover {
   border-color: antiquewhite;
   opacity: 0.6;
 }

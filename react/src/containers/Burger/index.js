@@ -1,18 +1,6 @@
-import React from "react";
-import Modal from 'react-modal'; // Here, we are importing library/component/util etc. that we want to use in our APp
-import { Prices, Controls, Builder } from '../../components'
+import React from "react"; // Here, we are importing library/component/util etc. that we want to use in our APp
+import { Prices, Controls, Builder, CustomModal } from '../../components'
 import './Burger.css';
-
-const customStyles = {
-    content: {
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)',
-    },
-}
 
 // Modal.setAppElement('#checkout_modal'); // to check
 class Burger extends React.Component {
@@ -35,6 +23,9 @@ class Burger extends React.Component {
         });
         // console.log('check =', this.state.isModalOpen); // true?
     }
+
+    prepareCheckout = () => <ul className="order_checkout">{this.state.orders.map((elem) => elem.quantity > 0 ? (<li key={elem.ingredient + elem.quantity}>{elem.ingredient}: {elem.quantity}</li>) : '')}</ul>;
+
     findIngredientPrice = (ingredient) => this.props.ingredients.find(element => element.name === ingredient).price
 
     findIngredientQuantity = (ingredient) => this.state.orders.find((e) => e.ingredient === ingredient).quantity;
@@ -108,21 +99,13 @@ class Burger extends React.Component {
                 <Prices ingredients={this.props.ingredients} />
                 <Builder totalPrice={this.state.totalPrice} products={this.state.inOrder} modalControl={this.onShowHideModal} />
                 <Controls onHandleIngredientQuantity={this.onHandleIngredientQuantity} ingredients={this.props.ingredients} orders={this.state.orders} />
-                <Modal
-                    style={customStyles}
+                <CustomModal
                     isOpen={this.state.isModalOpen}
-                    onRequestClose={this.onShowHideModal}
-                >{/* Here we can assign props (read documentation) */}
-                    {/* Here we can add Modal Body content */}
-                    <h2>Hello From Modal</h2>
-                    <button onClick={this.onShowHideModal}>close</button>
-                    {this.state.orders.map((elem) => { // check filter and map
-                        if (elem.quantity > 0) {
-                            return (<p>{elem.ingredient}: {elem.quantity}</p>);
-                        }
-                        return undefined;
-                    })}
-                </Modal> {/* Here are using that component; We need to read&use documentatio of a given component */}
+                    handleOpenClose={this.onShowHideModal}
+                    modalTitle='Awesome! Please, check your order'
+                    modalContent={this.prepareCheckout()}
+                    isCheckout
+                />
             </main>
         )
     }

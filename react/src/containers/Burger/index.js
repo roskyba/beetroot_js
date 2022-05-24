@@ -46,9 +46,7 @@ const initialState = {
   inOrder: [], // 'pickle', 'meat', 'cheeese'
   totalPrice: 1,
   isModalOpen: false,
-  completedOrders: [],
   orderToSave: null,
-  isOrdesPageActive: false,
   orderDetail: {
     orderName: "",
     orderPhone: "",

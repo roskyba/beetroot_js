@@ -3,12 +3,46 @@
   background-color: rgba(0, 0, 0, 0.6);
   box-shadow: 0 0 20px 0;
   display: flex;
+  height: 80px;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .header h2 {
   font-family: "Monoton", cursive !important;
   color: wheat;
   font-size: 30px;
+}
+
+.header .logo,
+.header ul {
+  width: 15vw;
+}
+
+.header img {
+  transform: rotateY(180deg);
+}
+
+.header {
+  display: flex;
+}
+
+.header ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: flex-start;
+  height: 100%;
+  align-items: center;
+}
+
+.header ul li {
+  color: white;
+  margin-right: 30px;
+  font-size: 30px;
+  line-height: 80px;
+}
+
+.header ul li:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }

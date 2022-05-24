@@ -34,6 +34,7 @@
   margin-bottom: 10px;
   align-items: flex-start;
   padding-left: 10px;
+  text-transform: capitalize;
 }
 
 .modal_form label input {
@@ -59,6 +60,7 @@
   padding: 10px 0;
   padding-left: 10px;
   font-size: 35px;
+  /* max-height: 300px; */
 }
 
 .order_checkout li::first-letter {

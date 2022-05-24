@@ -1,9 +1,17 @@
 .burger_prices {
   padding: 30px;
-  /* margin: auto; */
+  width: 15%;
 }
 
 .burger_prices {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.burger_prices h3,
+.burger_prices h2 {
   text-align: left;
 }
 

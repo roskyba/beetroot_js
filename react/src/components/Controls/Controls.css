@@ -1,6 +1,9 @@
 .burger_controls {
   padding: 30px;
   display: flex;
+  margin: auto;
+  width: 15%;
+  align-items: center;
   flex-direction: column;
   justify-content: flex-start;
   text-align: right;

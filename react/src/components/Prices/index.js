@@ -1,13 +1,22 @@
-import './Prices.css'
+import { Loader } from "../";
+import "./Prices.css";
 
 const Prices = (props) => {
-    return (
+  return (
+    <div className="burger_prices">
+      {props.loading ? (
+        <Loader />
+      ) : (
         <>
-            <div className="burger_prices">
-                <h2>Our prices</h2>
-                {props.ingredients.map((ingredient) => <h3 key={ingredient.name}>{ingredient.name}: <span>{ingredient.price} ₴</span></h3>)}
-            </div>
+          <h2>Our prices</h2>
+          {props.ingredients.map((ingredient) => (
+            <h3 key={ingredient.name}>
+              {ingredient.name}: <span>{ingredient.price} ₴</span>
+            </h3>
+          ))}
         </>
-    )
-}
-export default Prices
+      )}
+    </div>
+  );
+};
+export default Prices;

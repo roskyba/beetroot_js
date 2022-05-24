@@ -35,9 +35,10 @@
   align-items: center;
 }
 
-.header ul li {
+.header ul li a {
   color: white;
-  margin-right: 30px;
+  text-decoration: none;
+  /* margin-left: 0px; */
   font-size: 30px;
   line-height: 80px;
 }

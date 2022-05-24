@@ -75,9 +75,9 @@ class Burger extends React.Component {
             ...prevState,
             burgerIngredients: preparedOrder,
             ingredients: result.data[0].ingredients,
+            isLoading: false,
           };
         });
-        this.setState({ isLoading: false });
       })
       .catch((e) => {
         console.error(e);

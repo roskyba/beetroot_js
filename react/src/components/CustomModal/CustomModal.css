@@ -56,11 +56,9 @@
 }
 
 .order_checkout {
-  list-style-type: none;
   padding: 10px 0;
   padding-left: 10px;
   font-size: 35px;
-  /* max-height: 300px; */
 }
 
 .order_checkout li::first-letter {

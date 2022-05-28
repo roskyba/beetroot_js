@@ -19,7 +19,7 @@ const CustomModal = ({
   modalTitle,
   modalContent,
   isCheckout,
-  handleOrderSave,
+  handleConfirmClick,
   formFields,
   orderCreationState,
   inputValues,
@@ -35,8 +35,7 @@ const CustomModal = ({
       <div className="modal_content">
         <h2>{modalTitle}</h2>
         {modalContent}
-        <div></div>
-        {isCheckout && orderCreationState && (
+        {isCheckout && (
           <div className="modal_form">
             {formFields.map((field) => {
               return (
@@ -56,16 +55,14 @@ const CustomModal = ({
           </div>
         )}
       </div>
-      {orderCreationState && (
-        <div className="modal_controls">
-          <button className="btn" onClick={handleOrderSave}>
-            Confim
-          </button>
-          <button className="btn" onClick={handleOpenClose}>
-            Close
-          </button>
-        </div>
-      )}
+      <div className="modal_controls">
+        <button className="btn" onClick={handleConfirmClick}>
+          Confirm
+        </button>
+        <button className="btn" onClick={handleOpenClose}>
+          Close
+        </button>
+      </div>
     </div>
   </Modal>
 );

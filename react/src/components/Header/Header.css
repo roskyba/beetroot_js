@@ -1,6 +1,6 @@
 .header {
   height: 10vh;
-  background-color: rgba(0, 0, 0, 0.6);
+  padding: 0 12px;
   box-shadow: 0 0 20px 0;
   display: flex;
   height: 80px;
@@ -15,7 +15,7 @@
 }
 
 .header .logo,
-.header ul {
+.header nav {
   width: 15vw;
 }
 
@@ -27,23 +27,24 @@
   display: flex;
 }
 
-.header ul {
-  list-style-type: none;
+.header nav {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-around;
   height: 100%;
-  align-items: center;
 }
 
-.header ul li a {
+.header nav a {
   color: white;
   text-decoration: none;
-  /* margin-left: 0px; */
   font-size: 30px;
   line-height: 80px;
 }
 
-.header ul li:hover {
+.header nav a:hover {
   background-color: rgba(0, 0, 0, 0.2);
   cursor: pointer;
+}
+
+.menu_item_active {
+  border-bottom: 2px solid white;
 }

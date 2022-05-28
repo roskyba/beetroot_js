@@ -4,6 +4,5 @@ export { default as Prices } from "./Prices";
 export { default as Controls } from "./Controls";
 export { default as Builder } from "./Builder";
 export { default as CustomModal } from "./CustomModal";
-export { default as Orders } from "./Orders";
 export { default as Loader } from "./Loader";
 export { default as NotFound } from "./NotFound";

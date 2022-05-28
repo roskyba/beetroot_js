@@ -1,6 +1,5 @@
 import "./Header.css";
-
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export default function Header() {
   return (
@@ -15,17 +14,32 @@ export default function Header() {
         <div>
           <h2>Burger Builder App</h2>
         </div>
-        <ul>
-          <li>
-            <Link to="/orders">Orders</Link>
-          </li>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/faq">FAQ</Link>
-          </li>
-        </ul>
+        <nav>
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? "menu_item_active" : undefined
+            }
+            to="/"
+          >
+            Home
+          </NavLink>
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? "menu_item_active" : undefined
+            }
+            to="/orders"
+          >
+            Orders
+          </NavLink>
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? "menu_item_active" : undefined
+            }
+            to="/faq"
+          >
+            FAQ
+          </NavLink>
+        </nav>
       </header>
     </>
   );

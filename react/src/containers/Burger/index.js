@@ -62,27 +62,29 @@ class Burger extends React.Component {
     this.state = initialState;
   }
 
-  componentDidMount = () => {
-    axios("https://beetroot-burger-app.herokuapp.com/ingredients")
-      .then((result) => {
-        this.setState((prevState) => {
-          const preparedOrder = result.data[0].ingredients.map(
-            (e) => {
-              return { ingredient: e.name, quantity: 0 };
-            }
-          );
-          return {
-            ...prevState,
-            burgerIngredients: preparedOrder,
-            ingredients: result.data[0].ingredients,
-            isLoading: false,
-          };
+  getIngredients = async () => {
+    try {
+      const result = await axios(
+        "https://beetroot-burger-app.herokuapp.com/ingredients"
+      );
+      this.setState((prevState) => {
+        const preparedOrder = result.data[0].ingredients.map((e) => {
+          return { ingredient: e.name, quantity: 0 };
         });
-      })
-      .catch((e) => {
-        console.error(e);
-        this.setState({ isLoading: false });
+        return {
+          ...prevState,
+          burgerIngredients: preparedOrder,
+          ingredients: result.data[0].ingredients,
+          isLoading: false,
+        };
       });
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  componentDidMount = () => {
+    this.getIngredients();
   };
 
   onInputChange = (e) => {
@@ -101,7 +103,7 @@ class Burger extends React.Component {
     });
   };
 
-  handleOrderSave = () => {
+  handleCreateOrder = () => {
     const products = {};
     this.state.burgerIngredients.forEach((order) => {
       if (order.quantity > 0) {
@@ -132,14 +134,22 @@ class Burger extends React.Component {
 
     axios(config)
       .then(() => {
-        this.setState({ orderCreationResponse: true });
+        this.setState({
+          orderCreationResponse: true,
+          isModalOpen: false,
+        });
       })
       .catch((e) => {
         console.error(e);
       });
   };
 
-  onShowHideModal = () => {
+  onShowHideSuccessModal = () => {
+    this.setState(initialState);
+    this.getIngredients();
+  };
+
+  onShowHideCheckOutModal = () => {
     this.setState((prevState) => {
       return {
         ...prevState,
@@ -148,24 +158,23 @@ class Burger extends React.Component {
     });
   };
 
-  prepareCheckout = () =>
-    !this.state.orderCreationResponse ? (
-      <ul className="order_checkout">
-        {this.state.burgerIngredients.map((elem) =>
-          elem.quantity > 0 ? (
-            <li key={elem.ingredient + elem.quantity}>
-              {elem.ingredient}: {elem.quantity}
-            </li>
-          ) : (
-            ""
-          )
-        )}
-      </ul>
-    ) : (
-      <h1 className="order_checkout">
-        Success! Please, wait for your delivery!
-      </h1>
-    );
+  prepareCheckout = () => (
+    <ul className="order_checkout">
+      {this.state.burgerIngredients.map((elem) =>
+        elem.quantity > 0 ? (
+          <li key={elem.ingredient + elem.quantity}>
+            {elem.ingredient}: {elem.quantity}
+          </li>
+        ) : (
+          ""
+        )
+      )}
+    </ul>
+  );
+
+  showOrderSuccessModal = () => (
+    <h1 className="order_checkout">Please, wait a phone for call!</h1>
+  );
 
   findIngredientPrice = (ingredient) =>
     this.state.ingredients.find(
@@ -211,10 +220,12 @@ class Burger extends React.Component {
           ...prevState,
           burgerIngredients: newIngredients, // {ingredient: 'bacon', quantity: 2}
           inOrder: [...prevState.inOrder, ingredient], // ['bacon', 'bacon', 'cheese']
-          totalPrice: Number(
-            prevState.totalPrice +
-              this.findIngredientPrice(ingredient)
-          ), // the same
+          totalPrice: parseFloat(
+            Number(
+              prevState.totalPrice +
+                this.findIngredientPrice(ingredient)
+            ).toFixed(2)
+          ),
         };
       });
     }
@@ -243,9 +254,11 @@ class Burger extends React.Component {
           ...prevState,
           burgerIngredients: newIngredients,
           inOrder: newInOrder,
-          totalPrice: Number(
-            prevState.totalPrice -
-              this.findIngredientPrice(ingredient)
+          totalPrice: parseFloat(
+            Number(
+              prevState.totalPrice -
+                this.findIngredientPrice(ingredient)
+            ).toFixed(2)
           ),
         };
       });
@@ -254,7 +267,7 @@ class Burger extends React.Component {
 
   render() {
     return (
-      <main className="main">
+      <>
         <Prices
           ingredients={this.state.ingredients}
           loading={this.state.isLoading}
@@ -262,7 +275,7 @@ class Burger extends React.Component {
         <Builder
           totalPrice={this.state.totalPrice}
           products={this.state.inOrder}
-          modalControl={this.onShowHideModal}
+          modalControl={this.onShowHideCheckOutModal}
         />
         <Controls
           onHandleIngredientQuantity={this.onHandleIngredientQuantity}
@@ -272,17 +285,24 @@ class Burger extends React.Component {
         />
         <CustomModal
           isOpen={this.state.isModalOpen}
-          handleOpenClose={this.onShowHideModal}
+          handleOpenClose={this.onShowHideCheckOutModal}
           modalTitle="Best Burger App"
           modalContent={this.prepareCheckout()}
-          handleOrderSave={this.handleOrderSave}
-          orderCreationState={!this.state.orderCreationResponse}
+          handleConfirmClick={this.handleCreateOrder}
           formFields={formFields}
           inputValues={this.state.orderDetail}
           onInputChange={this.onInputChange}
           isCheckout
         />
-      </main>
+        <CustomModal
+          isOpen={this.state.orderCreationResponse}
+          handleOpenClose={this.onShowHideSuccessModal}
+          modalContent={this.showOrderSuccessModal()}
+          modalTitle="Success! Order received!"
+          handleConfirmClick={this.onShowHideSuccessModal}
+          orderCreationState={!this.state.orderCreationResponse}
+        />
+      </>
     );
   }
 }

@@ -9,28 +9,29 @@ const App = () => {
     <div className="App">
       <BrowserRouter>
         <Header />
-
-        <Routes>
-          <Route path="/" element={<Burger />} />
-          <Route
-            path="/blabla"
-            element={
-              <div>
-                <h1>Hello from blabla page</h1>
-              </div>
-            }
-          />
-          <Route
-            path="/faq"
-            element={
-              <div>
-                <h1>Hello from FAQ page</h1>
-              </div>
-            }
-          />
-          <Route path="/orders" element={<Orders />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <main className="main">
+          <Routes>
+            <Route path="/" element={<Burger />} />
+            <Route
+              path="/blabla"
+              element={
+                <div>
+                  <h1>Hello from blabla page</h1>
+                </div>
+              }
+            />
+            <Route
+              path="/faq"
+              element={
+                <div>
+                  <h1>Hello from FAQ page</h1>
+                </div>
+              }
+            />
+            <Route path="/orders" element={<Orders />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
 
         <Footer />
       </BrowserRouter>

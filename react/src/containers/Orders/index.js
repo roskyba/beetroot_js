@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { Loader } from "../../components";
+import "./Orders.css";
 
 class Orders extends React.Component {
   constructor() {
@@ -36,17 +37,17 @@ class Orders extends React.Component {
   render() {
     return (
       <>
-        {this.state.isLoading && <Loader />}
-        {this.state.orders.map((order) => {
-          return (
-            <div>
-              <p>
+        <div className="orders">
+          {this.state.isLoading && <Loader />}
+          <ul>
+            {this.state.orders.map((order) => (
+              <li key={order["_id"]} className="order_item">
                 {order.orderName} - {order.orderPhone} -{" "}
                 {order.orderPrice}{" "}
-              </p>
-            </div>
-          );
-        })}
+              </li>
+            ))}
+          </ul>
+        </div>
       </>
     );
   }

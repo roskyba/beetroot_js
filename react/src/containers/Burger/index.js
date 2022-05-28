@@ -7,6 +7,7 @@ import {
 } from "../../components";
 import axios from "axios";
 import "./Burger.css";
+import withMyHoc from "../../HOC/withMyHoc";
 
 const formFields = [
   {
@@ -42,7 +43,6 @@ const formFields = [
 
 const initialState = {
   burgerIngredients: [], // {ingredient: 'bacon', quantity: 0}
-  ingredients: [], // {name: 'bacon', price: 0.75}
   inOrder: [], // 'pickle', 'meat', 'cheeese'
   totalPrice: 1,
   isModalOpen: false,
@@ -57,8 +57,8 @@ const initialState = {
   isLoading: true,
 };
 class Burger extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = initialState;
   }
 
@@ -83,9 +83,9 @@ class Burger extends React.Component {
     }
   };
 
-  componentDidMount = () => {
-    this.getIngredients();
-  };
+  // componentDidMount = () => {
+  //   // this.getIngredients();
+  // };
 
   onInputChange = (e) => {
     const computedValue =
@@ -177,7 +177,7 @@ class Burger extends React.Component {
   );
 
   findIngredientPrice = (ingredient) =>
-    this.state.ingredients.find(
+    this.props.ingredients.find(
       (element) => element.name === ingredient
     ).price;
 
@@ -266,11 +266,12 @@ class Burger extends React.Component {
   };
 
   render() {
+    console.log("props from Burger =", this.addIngredientprops);
     return (
       <>
         <Prices
-          ingredients={this.state.ingredients}
-          loading={this.state.isLoading}
+          ingredients={this.props.res}
+          loading={this.props.isLoading}
         />
         <Builder
           totalPrice={this.state.totalPrice}
@@ -279,9 +280,9 @@ class Burger extends React.Component {
         />
         <Controls
           onHandleIngredientQuantity={this.onHandleIngredientQuantity}
-          ingredients={this.state.ingredients}
+          ingredients={this.props.ingredients}
           burgerIngredients={this.state.burgerIngredients}
-          loading={this.state.isLoading}
+          loading={this.props.isLoading}
         />
         <CustomModal
           isOpen={this.state.isModalOpen}
@@ -307,4 +308,4 @@ class Burger extends React.Component {
   }
 }
 
-export default Burger;
+export default withMyHoc(Burger);

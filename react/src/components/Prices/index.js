@@ -2,6 +2,7 @@ import { Loader } from "../";
 import "./Prices.css";
 
 const Prices = (props) => {
+  console.log("props", props);
   return (
     <div className="burger_prices">
       {props.loading ? (

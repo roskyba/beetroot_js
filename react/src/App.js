@@ -3,6 +3,7 @@ import { Footer, Header, NotFound } from "./components";
 import { Burger, Orders } from "./containers";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Dummy from "./components/Dummy";
 
 const App = () => {
   return (
@@ -28,7 +29,25 @@ const App = () => {
                 </div>
               }
             />
-            <Route path="/orders" element={<Orders />} />
+            <Route path="/orders" element={<Orders />}>
+              <Route
+                path="go-facebook"
+                element={<Dummy data={{ a: 1, b: 2 }} />}
+              />
+              <Route
+                path="go-inst"
+                element={<Dummy data={{ abbbDDD: 12, bDDD: 255 }} />}
+              />
+
+              <Route
+                path="go-tel"
+                element={<Dummy data={{ abbb: 12, b: 255 }} />}
+              />
+              <Route
+                path="*"
+                element={<div>Not found just for Orders</div>}
+              />
+            </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

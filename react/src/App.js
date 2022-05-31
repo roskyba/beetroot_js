@@ -1,5 +1,5 @@
 import React from "react";
-import { Footer, Header, NotFound } from "./components";
+import { Footer, Header, NotFound, Hooks } from "./components";
 import { Burger, Orders } from "./containers";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -48,6 +48,8 @@ const App = () => {
                 element={<div>Not found just for Orders</div>}
               />
             </Route>
+            <Route path="hooks" element={<Hooks />} />{" "}
+            {/* ROUTE FOR HOOKS PRACTICE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

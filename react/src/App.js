@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Footer, Header, NotFound, Hooks } from "./components";
 import { Burger, Orders } from "./containers";
 import "./App.css";
@@ -6,8 +6,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Dummy from "./components/Dummy";
 
 const App = () => {
+  const [propData, setPropData] = useState("test");
+  console.log("data =", window.location.pathname);
   return (
     <div className="App">
+      <button onClick={() => setPropData("Ros")}>Change props</button>
       <BrowserRouter>
         <Header />
         <main className="main">
@@ -48,7 +51,19 @@ const App = () => {
                 element={<div>Not found just for Orders</div>}
               />
             </Route>
-            <Route path="hooks" element={<Hooks />} />{" "}
+            <Route
+              path="heroes"
+              element={
+                <>
+                  <div>Heroes page</div>
+                </>
+              }
+            />
+            <Route
+              path="heroes/:id"
+              element={<div>Hero detail</div>}
+            />
+            <Route path="hooks" element={<Hooks data={propData} />} />{" "}
             {/* ROUTE FOR HOOKS PRACTICE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

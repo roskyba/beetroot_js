@@ -51,6 +51,7 @@ const App = () => {
                 element={<div>Not found just for Orders</div>}
               />
             </Route>
+            {/* ROUTE FOR HOOKS PRACTICE --- START --- */}
             <Route
               path="heroes"
               element={
@@ -64,7 +65,7 @@ const App = () => {
               element={<div>Hero detail</div>}
             />
             <Route path="hooks" element={<Hooks data={propData} />} />{" "}
-            {/* ROUTE FOR HOOKS PRACTICE */}
+            {/* ROUTE FOR HOOKS PRACTICE --- END --- */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

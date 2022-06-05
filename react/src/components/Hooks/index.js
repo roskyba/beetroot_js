@@ -12,8 +12,6 @@ const Hooks = (props) => {
   const [clientY, setClientY] = useState(null);
   const navigate = useNavigate();
 
-  console.log("props =", props);
-
   useEffect(() => {
     // console.log("Inside useEffect function");
     getOrder();

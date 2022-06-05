@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Footer, Header, NotFound, Hooks } from "./components";
 import { Burger, Orders } from "./containers";
 import "./App.css";
@@ -7,10 +7,33 @@ import Dummy from "./components/Dummy";
 
 const App = () => {
   const [propData, setPropData] = useState("test");
-  console.log("data =", window.location.pathname);
+  const [appTheme, setAppTheme] = useState(
+    localStorage.getItem("theme")
+  );
+
+  useEffect(() => {
+    const themeFromLocalStorage = localStorage.setItem(
+      "theme",
+      appTheme
+    );
+    if (themeFromLocalStorage === null) {
+      setAppTheme("dark");
+    }
+  }, [appTheme]);
+
+  const changeSystem = () => {
+    // console.log(sessionStorage.setItem("blabla", true));
+    if (appTheme === "dark") {
+      setAppTheme("white");
+    } else {
+      setAppTheme("dark");
+    }
+  };
+
   return (
-    <div className="App">
+    <div className={`App ${appTheme}`}>
       <button onClick={() => setPropData("Ros")}>Change props</button>
+      <button onClick={changeSystem}>Switch System</button>
       <BrowserRouter>
         <Header />
         <main className="main">
